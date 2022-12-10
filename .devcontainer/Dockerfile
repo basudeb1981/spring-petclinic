@@ -1,5 +1,6 @@
-ARG VARIANT=11-bullseye
-FROM mcr.microsoft.com/vscode/devcontainers/java:0-${VARIANT}
+FROM openjdk:8-jdk-alpine
+ENV SA_LOGIC_API_URL http://localhost:5050
+ADD target/spring-petclinic-2.7.0.jar /
+EXPOSE 8080
+CMD ["java","-jar","spring-petclinic-2.7.0.jar","--sa.logic.api.url=${"SA_LOGIC_API_URL"]
 
-ARG NODE_VERSION="none"
-RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
